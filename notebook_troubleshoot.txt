@@ -1,0 +1,78 @@
+notebook troubleshooting:
+
+
+Markets Commodities Metal Ratios
+    dt = te.fetchMarkets(symbol=['XAUUSD:CUR', 'HG1:COM', 'XPTUSD:CUR','XPDUSD:CUR', 'CL1:COM'], initDate='2010-01-01', endDate='2020-12-31', output_type='df')
+    dt_gold = dt.query('Symbol == "XAUUSD:CUR" ' )
+    print(dt_gold)
+        NaN
+
+
+TE_Inflation_vs_Spending.ipynb
+countries = ['Afghanistan', 'Åland Islands']
+    infl_df  = pd.DataFrame(te.getHistoricalData(country=countries[0],  indicator='Core Inflation Rate')) # 0 because first in list to have data
+    infl_df.columns = [countries[0]]
+        ValueError: Length mismatch: Expected axis has 7 elements, new values have 1 elements
+
+TE_Terrorism Index.ipynb
+    terr_df  = pd.DataFrame(te.getHistoricalData(country=countries[0],  indicator='Terrorism Index'))
+    print(terr_df.columns)
+        ValueError: Length mismatch: Expected axis has 7 elements, new values have 1 elements
+
+
+TE_Historical_US_EA_GDP_Employment.ipynb
+    data_gdp = te.getHistoricalData(country='United States', indicator='GDP Constant Prices', initDate='2019-01-01')
+    data_employment = te.getHistoricalData(country='United States', indicator='Employed Persons', initDate='2019-01-01')
+    data_gdp_referece_point = data_gdp[0][0]
+        KeyError: 0
+
+
+
+
+
+
+discontinued:
+
+
+Worldbank_Electricity_sources.ipynb
+    renewable_energy = te.getWBIndicator(series_code = 'EG.ELC.RNWX.ZS', output_type='df')
+        returns None
+
+Worldbank_Gender_Survey.ipynb
+    data = te.getWBIndicator(series_code = 'SG.OWN.PRRT.MR', output_type='df')
+    print(data)
+        returns None
+
+WorldBank_Historical_Electricity.ipynb
+    data = te.getWBHistorical(series_code = 'AGO.1.1_ACCESS.ELECTRICITY.TOT', output_type='df')
+        returns None 
+
+
+solved:
+
+TE_Historical_MoneySupply_Inflation.ipynb
+    data_money0 = te.getHistoricalData(country='United States', indicator='Money Supply M0', initDate='2019-01-01')
+    data_inflation_referece_point = data_inflation[0][0]
+        cant access [0][0]
+            output_type='df'
+    -> .iloc negative values
+
+    eur_usd_intraday = te.getMarketsIntraday(symbols = ['eurusd:cur'], initDate='2021-09-03', endDate='2021-09-04', output_type = 'df')
+        returns None
+    -> only three months data for intraday
+    -> time the ultimate currency
+
+
+COMTRADE_data_analysis_on_countries_export
+    brazil_total_exports= te.getTotalByType(country='brazil', type='export', output_type='df')
+        AttributeError: module 'tradingeconomics' has no attribute 'getTotalByType'
+    -> getcmtrade() new function
+
+commodity index
+    base_value = 100
+    total_value = df.loc[dates[-1]].sum()
+    index_divisor = total_value / base_value
+    index_divisor
+        KeyError: -1
+        df = df / index_divisor # If we have a listlike key, _check_indexing_error will raise
+-> date as index not as column
