@@ -10,21 +10,13 @@ Markets Commodities Metal Ratios
 
 TE_Inflation_vs_Spending.ipynb
 countries = ['Afghanistan', 'Åland Islands']
-    infl_df  = pd.DataFrame(te.getHistoricalData(country=countries[0],  indicator='Core Inflation Rate')) # 0 because first in list to have data
+    infl_df  = te.getHistoricalData(country=countries[0],  indicator='Core Inflation Rate', output_type='df') 
+    # 0 because first in list to have data
     infl_df.columns = [countries[0]]
         ValueError: Length mismatch: Expected axis has 7 elements, new values have 1 elements
 
-TE_Terrorism Index.ipynb
-    terr_df  = pd.DataFrame(te.getHistoricalData(country=countries[0],  indicator='Terrorism Index'))
-    print(terr_df.columns)
-        ValueError: Length mismatch: Expected axis has 7 elements, new values have 1 elements
 
 
-TE_Historical_US_EA_GDP_Employment.ipynb
-    data_gdp = te.getHistoricalData(country='United States', indicator='GDP Constant Prices', initDate='2019-01-01')
-    data_employment = te.getHistoricalData(country='United States', indicator='Employed Persons', initDate='2019-01-01')
-    data_gdp_referece_point = data_gdp[0][0]
-        KeyError: 0
 
 
 
@@ -49,6 +41,20 @@ WorldBank_Historical_Electricity.ipynb
 
 
 solved:
+
+TE_Terrorism Index.ipynb
+    terr_df = te.getHistoricalData(country=countries[0],  indicator='Terrorism Index', output_type='df')
+    terr_df.columns = [countries[0]]
+        ValueError: Length mismatch: Expected axis has 7 elements, new values have 1 elements
+
+    ->dataframe columns 
+
+TE_Historical_US_EA_GDP_Employment.ipynb
+    data_gdp = te.getHistoricalData(country='United States', indicator='GDP Constant Prices', initDate='2019-01-01')
+    data_employment = te.getHistoricalData(country='United States', indicator='Employed Persons', initDate='2019-01-01')
+    data_gdp_referece_point = data_gdp[0][0]
+        KeyError: 0
+    -> to dataframe
 
 TE_Historical_MoneySupply_Inflation.ipynb
     data_money0 = te.getHistoricalData(country='United States', indicator='Money Supply M0', initDate='2019-01-01')
