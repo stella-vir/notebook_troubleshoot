@@ -1,21 +1,6 @@
 notebook troubleshooting:
 
 
-Markets Commodities Metal Ratios
-    dt = te.fetchMarkets(symbol=['XAUUSD:CUR', 'HG1:COM', 'XPTUSD:CUR','XPDUSD:CUR', 'CL1:COM'], initDate='2010-01-01', endDate='2020-12-31', output_type='df')
-    dt_gold = dt.query('Symbol == "XAUUSD:CUR" ' )
-    print(dt_gold)
-        NaN
-
-
-TE_Inflation_vs_Spending.ipynb
-countries = ['Afghanistan', 'Åland Islands']
-    infl_df  = te.getHistoricalData(country=countries[0],  indicator='Core Inflation Rate', output_type='df') 
-    # 0 because first in list to have data
-    infl_df.columns = [countries[0]]
-        ValueError: Length mismatch: Expected axis has 7 elements, new values have 1 elements
-
-
 
 
 
@@ -41,6 +26,21 @@ WorldBank_Historical_Electricity.ipynb
 
 
 solved:
+
+
+Markets Commodities Metal Ratios
+    copper_gold_ratio = ['Close'] / ['Close']
+        returns NaN
+-> rebuild the dataframe
+
+TE_Inflation_vs_Spending.ipynb
+countries = ['Afghanistan', 'Åland Islands']
+    infl_df  = te.getHistoricalData(country=countries[0],  indicator='Core Inflation Rate', output_type='df') 
+    # 0 because first in list to have data
+    infl_df.columns = [countries[0]]
+        ValueError: Length mismatch: Expected axis has 7 elements, new values have 1 elements
+
+-> rebuild the dataframe
 
 TE_Terrorism Index.ipynb
     terr_df = te.getHistoricalData(country=countries[0],  indicator='Terrorism Index', output_type='df')
